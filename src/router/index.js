@@ -104,6 +104,20 @@ export const constantRoutes = [
         meta: { title: '企业资产管理', icon: 'form', affix: true }
       }
     ]
+  },
+  {
+
+    path: '/assetList',
+    component: Layout,
+    redirect: '/assetList',
+    children: [
+      {
+        path: 'assetList',
+        component: () => import('@/views/assetList/index'),
+        name: 'assetList',
+        meta: { title: '企业资产列表', icon: 'form', affix: true }
+      }
+    ]
   }
 ]
 

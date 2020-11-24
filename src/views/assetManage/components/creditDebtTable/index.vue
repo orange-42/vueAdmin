@@ -16,17 +16,16 @@
           {{ scope.$index+1 }}
         </template>
       </el-table-column>
-      <el-table-column width="100px" align="center" prop="date" label="日期" />
       <el-table-column label="企业名称" align="center">
         <el-table-column
           align="center"
-          prop="debtor"
+          prop="obligor"
           label="债务人"
           width="80"
         />
 
         <el-table-column
-          prop="sponsor"
+          prop="guarantee"
           align="center"
           label="担保人"
           width="80"
@@ -34,7 +33,7 @@
       </el-table-column>
 
       <el-table-column label="债券标的" align="center">
-        <el-table-column prop="capital" align="center" label="本金" width="80" />
+        <el-table-column prop="principal" align="center" label="本金" width="80" />
 
         <el-table-column
           align="center"
@@ -49,26 +48,26 @@
         <el-table-column prop="address" align="center" label="地址" width="120" />
 
         <el-table-column
-          prop="closeDown"
+          prop="Seizure"
           align="center"
           label="抵押、查封情况"
           width="120"
         />
       </el-table-column>
       <el-table-column
-        prop="occurrenceTime"
+        prop="happenTime"
         align="center"
         label="发生时间"
         width="150"
       />
       <el-table-column
-        prop="expiresTime"
+        prop="invalidTime"
         label="失效时间"
         align="center"
         width="150"
       />
       <el-table-column
-        prop="pleading"
+        prop="LitigationDoc"
         label="诉讼文书"
         align="center"
         width="150"
@@ -99,89 +98,122 @@
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
     />
+    <content-dialog ref="dialog" :title-list="titleList" :form="form" :dialog-visible="dialogVisible" :submit="submit" :titles="titles" @closeDialog="closeDialog" />
   </div>
 </template>
 <script>
 import tables from '@/components/tables'
+import contentDialog from '@/components/contentDialog'
 export default {
   name: 'CreditDebt',
+  components: {
+    contentDialog
+  },
   data() {
     return {
       currentPage: 1, // 当前页码
+      titles: '编辑债权、债务表',
+      submit: '保存',
       total: 20, // 总条数
       pageSize: 3, // 每页的数据条数
+      // 定义集成表单的  内部字段值
+      form: {
+        name: '123',
+        address: '345',
+        persons: '',
+        type: '',
+        fields: 'kkk',
+        mmm: 'ggg',
+        ppp: '',
+        tyty: '',
+        ssss: '',
+        aaaa: '',
+        rrrr: '',
+        hhhh: ''
+      },
+      // 定义 contentDialog 下的 formContent 的form内容 表头
+      titleList: [
+        { fields: 'name', name: '活动名称' },
+        { fields: 'address', name: '活动地址' },
+        { fields: 'persons', name: '活动人数' },
+        { fields: 'type', name: '活动类型' },
+        { fields: 'kkk', name: '活动kkk' },
+        { fields: 'mmm', name: '活动mmm' },
+        { fields: 'ppp', name: '活动ppp' },
+        { fields: 'tyty', name: '活动tyt' },
+        { fields: 'ssss', name: '活动ssss' },
+        { fields: 'aaaa', name: '活动aaaa' },
+        { fields: 'rrrr', name: '活动rrrr' },
+        { fields: 'hhhh', name: '活动hhh' }
+      ],
       tableData: [
         {
-          date: '2020-11-20',
-          debtor: '佘凯宇',
-          sponsor: '佘凯宇',
-          capital: 10000,
+          obligor: '佘凯宇',
+          guarantee: '佘凯宇',
+          principal: 10000,
           interest: 100,
           total: 10100,
           address: '汕头市长荣大厦',
-          closeDown: '已查封',
-          occurrenceTime: '2020-11-18',
-          expiresTime: '2020-11-21',
-          pleading: 'a.txt',
+          Seizure: '已查封',
+          happenTime: '2020-11-18',
+          invalidTime: '2020-11-21',
+          LitigationDoc: 'a.txt',
           other: '无'
         },
         {
-          date: '2020-11-20',
-          debtor: '佘凯宇',
-          sponsor: '佘凯宇',
-          capital: 10000,
+          obligor: '佘凯宇',
+          guarantee: '佘凯宇',
+          principal: 10000,
           interest: 100,
           total: 10100,
           address: '汕头市长荣大厦',
-          closeDown: '已查封',
-          occurrenceTime: '2020-11-18',
-          expiresTime: '2020-11-21',
-          pleading: 'a.txt',
+          Seizure: '已查封',
+          happenTime: '2020-11-18',
+          invalidTime: '2020-11-21',
+          LitigationDoc: 'a.txt',
           other: '无'
         },
         {
-          date: '2020-11-20',
-          debtor: '佘凯宇',
-          sponsor: '佘凯宇',
-          capital: 10000,
+          obligor: '佘凯宇',
+          guarantee: '佘凯宇',
+          principal: 10000,
           interest: 100,
           total: 10100,
           address: '汕头市长荣大厦',
-          closeDown: '已查封',
-          occurrenceTime: '2020-11-18',
-          expiresTime: '2020-11-21',
-          pleading: 'a.txt',
+          Seizure: '已查封',
+          happenTime: '2020-11-18',
+          invalidTime: '2020-11-21',
+          LitigationDoc: 'a.txt',
           other: '无'
         },
         {
-          date: '2020-11-20',
-          debtor: '佘凯宇',
-          sponsor: '佘凯宇',
-          capital: 10000,
+          obligor: '佘凯宇',
+          guarantee: '佘凯宇',
+          principal: 10000,
           interest: 100,
           total: 10100,
           address: '汕头市长荣大厦',
-          closeDown: '已查封',
-          occurrenceTime: '2020-11-18',
-          expiresTime: '2020-11-21',
-          pleading: 'a.txt',
+          Seizure: '已查封',
+          happenTime: '2020-11-18',
+          invalidTime: '2020-11-21',
+          LitigationDoc: 'a.txt',
           other: '无'
         },
         {
-          date: '2020-11-20',
-          debtor: '佘凯宇',
-          sponsor: '佘凯宇',
-          capital: 20000,
-          interest: 200,
-          total: 20200,
+          obligor: '佘凯宇',
+          guarantee: '佘凯宇',
+          principal: 10000,
+          interest: 100,
+          total: 10100,
           address: '汕头市长荣大厦',
-          closeDown: '已查封',
-          occurrenceTime: '2020-11-18',
-          expiresTime: '2020-11-21',
-          pleading: 'a.txt',
+          Seizure: '已查封',
+          happenTime: '2020-11-18',
+          invalidTime: '2020-11-21',
+          LitigationDoc: 'a.txt',
           other: '无'
         }
-      ]
+      ],
+      dialogVisible: false
     }
   },
   methods: {
@@ -195,7 +227,11 @@ export default {
       this.currentPage = val
     },
     editClick() {
-      console.log('编辑')
+      console.log(this.$refs.dialog, '编辑')
+      this.dialogVisible = true
+    },
+    closeDialog() {
+      this.dialogVisible = false
     },
     delClick() {
       console.log('删除')

@@ -26,7 +26,7 @@
           <span>{{ scope.row[scope.column.property] }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center">
+      <el-table-column width="110" align="center">
         <template slot="header" slot-scope="scope">
           <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
         </template>
@@ -64,6 +64,8 @@
     <dialogs
       ref="dialoges"
       :submit="submitText"
+      :title-list="titleList"
+      :form="form"
       :titles="titles"
       :dialog-visible="dialogVisible"
       @closeDialog="closeDialog"
@@ -82,13 +84,31 @@ export default {
   },
   //  从父页面取得值进行table加载
   props: {
+    // 表头
     tableHead: {
       type: Array,
       default: []
     },
+    // 表格内容
     dormitory: {
       type: Array,
       default: []
+    },
+    // 弹窗表单  的值
+    form: {
+      type: Object
+    },
+    // 弹窗表单的 表头信息
+    titleList: {
+      type: Array
+    },
+    // 弹窗的标题
+    titles: {
+      type: String
+    },
+    // 弹窗 提交按钮的文字定义
+    submitText: {
+      type: String
     }
   },
   data() {
@@ -97,8 +117,6 @@ export default {
       total: 20, // 总条数
       pageSize: 3, // 每页的数据条数
       dialogVisible: false,
-      titles: '编辑',
-      submitText: '保存',
       tableDatas: [],
       // tableHead: [
       //   // { key: "No", label: "序号" },

@@ -11,7 +11,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="企业名称:">
             <el-input
-              v-model="dengmiQueryForm.mimian"
+              v-model="dengmiQueryForm.EnterpriseName"
               placeholder="请输入企业名称"
             />
           </el-form-item>
@@ -19,7 +19,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="法人代表:">
             <el-input
-              v-model="dengmiQueryForm.mimu"
+              v-model="dengmiQueryForm.Corporation"
               placeholder="请输入法人代表"
             />
           </el-form-item>
@@ -27,7 +27,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="注册资金:">
             <el-input
-              v-model="dengmiQueryForm.mige"
+              v-model="dengmiQueryForm.RegisteredFund"
               placeholder="请输入注册资金"
             />
           </el-form-item>
@@ -37,7 +37,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="办公地址:">
             <el-input
-              v-model="dengmiQueryForm.midi"
+              v-model="dengmiQueryForm.address"
               placeholder="请输入办公地址"
             />
           </el-form-item>
@@ -45,7 +45,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="企业户数:">
             <el-input
-              v-model="dengmiQueryForm.zuozhe"
+              v-model="dengmiQueryForm.EnterpriseNum"
               placeholder="请输入企业户数"
             />
           </el-form-item>
@@ -53,7 +53,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="经济性质:">
             <el-input
-              v-model="dengmiQueryForm.midiLength"
+              v-model="dengmiQueryForm.EconomicNature"
               placeholder="请输入经济性质"
             />
           </el-form-item>
@@ -64,7 +64,8 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="级次:">
             <el-cascader
-              v-model="dengmiQueryForm.level"
+              v-model="dengmiQueryForm.Level"
+              style="width:100%"
               :options="dengmiQueryForm.levelList"
               :props="{ checkStrictly: true }"
               placeholder="请选择级次"
@@ -82,7 +83,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="企业职工总数:">
             <el-input
-              v-model="dengmiQueryForm.midiLength"
+              v-model="dengmiQueryForm.employeenum"
               placeholder="请输入企业职工总数"
             />
           </el-form-item>
@@ -90,7 +91,7 @@
         <el-col :span="8">
           <el-form-item label-width="105px" label="经营情况:">
             <el-input
-              v-model="dengmiQueryForm.zuozhe"
+              v-model="dengmiQueryForm.Condition"
               placeholder="请输入经营情况"
             />
           </el-form-item>
@@ -100,7 +101,12 @@
       <el-row :gutter="20">
         <el-col :span="8">
           <el-form-item label-width="105px" label="离退休人员:">
-            <el-input placeholder="请输入离退休人员" />
+            <el-input v-model="dengmiQueryForm.RetireNum" placeholder="请输入离退休人员" />
+          </el-form-item>
+        </el-col>
+        <el-col :span="8">
+          <el-form-item label-width="105px" label="联系电话:">
+            <el-input v-model="dengmiQueryForm.contactphone" placeholder="请输入联系电话" />
           </el-form-item>
         </el-col>
         <!-- <el-col span="8">
@@ -119,7 +125,7 @@
         <el-col :span="12">
           <el-form-item label="职工总数:">
             <el-input
-              v-model="dengmiQueryForm.zuozhe"
+              v-model="dengmiQueryForm.incumbencystaff"
               placeholder="请输入职工总数"
             />
           </el-form-item>
@@ -127,7 +133,7 @@
         <el-col :span="12">
           <el-form-item label-width="180px" label="达到离岗退养条件人员:">
             <el-input
-              v-model="dengmiQueryForm.midiLength"
+              v-model="dengmiQueryForm.incumbencyretired"
               placeholder="请输入达到离岗退养条件人员"
             />
           </el-form-item>
@@ -137,12 +143,12 @@
       <el-row>
         <el-col :span="12">
           <el-form-item label="职工总数:">
-            <el-input placeholder="请输入职工总数" />
+            <el-input v-model="dengmiQueryForm.resignstaff" placeholder="请输入职工总数" />
           </el-form-item>
         </el-col>
         <el-col :span="12">
           <el-form-item label-width="180px" label="达到离岗退养条件人员:">
-            <el-input placeholder="请输入达到离岗退养条件人员" />
+            <el-input v-model="dengmiQueryForm.resignretired" placeholder="请输入达到离岗退养条件人员" />
           </el-form-item>
         </el-col>
       </el-row>
@@ -161,13 +167,24 @@ export default {
   data() {
     return {
       dengmiQueryForm: {
-        mimian: '',
-        mimu: '',
-        mige: '',
-        midi: '',
-        zuozhe: '',
-        midiLength: '',
-        levelList: [{
+        /* 字段 */
+        EnterpriseName: '', // 企业名称
+        RetireNum: '', // 离退休人员
+        Corporation: '', // 法人代表
+        RegisteredFund: '', // 注册资金
+        address: '', // 办公地址
+        EnterpriseNum: '', // 企业户数
+        EconomicNature: '', // 经济性质
+        Level: '', // 级次
+        Condition: '', // 经营情况
+        employeenum: '', // 企业职工人数
+        RetireNum: '', // 离退休人员
+        incumbencystaff: '', // 在岗在职人员---职工总数
+        incumbencyretired: '', // 在岗在职人员--达到离岗退养条件人员
+        resignstaff: '', // 不在岗人员---职工总数
+        resignretired: '', // 不在岗人员---达到离岗退养条件人员
+        contactphone: '', // 联系电话
+        levelList: [{ // 等级列表
           value: '1',
           label: '一级',
           children: [{
@@ -178,8 +195,7 @@ export default {
               label: '三级'
             }]
           }]
-        }],
-        level: ''
+        }]
       }
     }
   },
