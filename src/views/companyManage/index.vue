@@ -29,7 +29,7 @@
 
               添加组织
             </el-button>
-            <el-button
+            <!-- <el-button
               type="text"
               size="mini"
               class="add-btn"
@@ -44,7 +44,7 @@
               @click="createGroup"
             >
               删除
-            </el-button>
+            </el-button> -->
           </div>
         </div>
         <!-- <tree-list></tree-list> -->
