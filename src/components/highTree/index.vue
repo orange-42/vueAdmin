@@ -229,11 +229,11 @@ export default {
 
     remove(node, data) {
       console.log(node, data, 'del')
-      // const parent = node.parent;
-      // const children = parent.data.children || parent.data;
-      // const index = children.findIndex((d) => d.id === data.id);
-      // children.splice(index, 1);
-      // this.updateApiGroup(this.data);
+      const parent = node.parent
+      const children = parent.data.children || parent.data
+      const index = children.findIndex((d) => d.id === data.id)
+      children.splice(index, 1)
+      this.updateApiGroup(this.data)
     },
 
     edit(node, data) {
